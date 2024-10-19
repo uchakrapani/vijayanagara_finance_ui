@@ -65,7 +65,7 @@ const EditAdmin = () => {
       }
       setSuccess(true); // Show success message
       setTimeout(() => {
-        navigate('/dashboard/admin'); // Redirect to the admin list page after success
+        navigate('/dashboard/admin-list'); // Redirect to the admin list page after success
       }, 2000); // Delay the navigation for better UX
     } catch (error) {
       setError(error.message);
