@@ -1,13 +1,26 @@
-import React from 'react'
-import { Navbar, Container, Row, Col, Button, Nav } from 'react-bootstrap';
+import React from 'react';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import DashboardChart from './DashboardChart';
+import './Home.css'; // Import custom CSS for styling
 
 const Home = () => {
     return (
-        <Col md={8} className="p-4">
-            <h1>Dashboard Content</h1>
-            <p>This is where the main content of the dashboard will appear.</p>
-        </Col>
-    )
-}
+        <Container className="p-4">
+            <Row>
+                <Col md={12}> {/* Set to 12 to occupy full width */}
+                    <Card className="h-100 shadow-sm border-0"> {/* Use shadow for depth and border-0 for a cleaner look */}
+                        <Card.Body>
+                            <Card.Title className="text-center display-4 text-primary">Welcome to Vijayanagara Finance</Card.Title>
+                            <Card.Text className="text-center lead">
+                                Your gateway to financial solutions. Discover insights and manage your areas and administrators efficiently.
+                            </Card.Text>
+                            <DashboardChart />
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
+    );
+};
 
-export default Home
+export default Home;

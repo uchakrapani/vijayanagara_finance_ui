@@ -1,0 +1,13 @@
+
+.text-primary {
+    color: #007bff; /* Bootstrap primary color */
+}
+
+.lead {
+    font-size: 1.25rem; /* Larger font for emphasis */
+    font-weight: 300; /* Lighter weight for readability */
+}
+
+.shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
