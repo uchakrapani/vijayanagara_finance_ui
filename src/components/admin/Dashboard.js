@@ -8,6 +8,12 @@ import CreateArea from './CreateArea';
 import AreaList from './AreaList';
 import Home from './Home';
 import EditArea from './EditArea';
+import ErrorLog from './ErrorLog';
+import DashboardNav from './DashboardNav';
+import ErrorLogDetail from './ErrorLogDetail';
+import AdminList from './AdminList';
+import CreateAdmin from './CreateAdmin';
+import EditAdmin from './EditAdmin';
 
 const Dashboard = () => {
     return (
@@ -17,13 +23,7 @@ const Dashboard = () => {
                 <Row>
                     {/* Left-side menu */}
                     <Col md={2} className="bg-light p-3">
-                        <Nav className="flex-column">
-                            <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
-                            <Nav.Link as={Link} to="/dashboard/transactions">Transactions</Nav.Link>
-                            <Nav.Link as={Link} to="/dashboard/reports">Reports</Nav.Link>
-                            <Nav.Link as={Link} to="/dashboard/settings">Settings</Nav.Link>
-                            <Nav.Link as={Link} to="/dashboard/area">Area</Nav.Link> {/* Link to Area List */}
-                        </Nav>
+                       <DashboardNav/>
                     </Col>
 
                     {/* Main body */}
@@ -33,6 +33,11 @@ const Dashboard = () => {
                             <Route path="/area" element={<ProtectedRoute><AreaList /></ProtectedRoute>} />
                             <Route path="/create-area" element={<ProtectedRoute><CreateArea /></ProtectedRoute>} />
                             <Route path="/edit-area/:id" element={<ProtectedRoute><EditArea /></ProtectedRoute>} />
+                            <Route path="/error-logs" element={<ProtectedRoute><ErrorLog /></ProtectedRoute>} />
+                            <Route path="/admin-list" element={<AdminList />} /> 
+                            <Route path="/create-admin" element={<CreateAdmin />} />
+                            <Route path="/edit-admin/:id" element={<ProtectedRoute><EditAdmin /></ProtectedRoute>} /> 
+                            <Route path="/error-logs/:id" element={<ErrorLogDetail />} /> 
                         </Routes>
                     </Col>
 
