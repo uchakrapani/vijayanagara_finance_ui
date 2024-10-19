@@ -2,28 +2,32 @@ import React, { useContext } from 'react';
 import { Navbar, Container, Nav, Dropdown, Button } from 'react-bootstrap';
 import { AuthContext } from '../../AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { GiTakeMyMoney } from 'react-icons/gi';
 
 const Header = () => {
-    const { auth, logout } = useContext(AuthContext); // Get auth details and logout function from context
-    const navigate = useNavigate(); // Hook to navigate on logout
+    const { auth, logout } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleLogout = () => {
-        logout(); // Call the logout function to clear user data
-        navigate('/login'); // Redirect to the login page after logout
+        logout();
+        navigate('/login');
     };
 
     const handleProfile = () => {
-        navigate('/profile'); // Navigate to the profile page
+        navigate('/profile');
     };
 
     const handleResetPassword = () => {
-        navigate('/reset-password'); // Navigate to reset password page
+        navigate('/reset-password');
     };
 
     return (
-        <Navbar bg="dark" variant="dark" className="mb-4">
+        <Navbar style={{ backgroundColor: '#003366' }} variant="dark" className="mb-4"> {/* Navy Blue */}
             <Container fluid>
-            <Navbar.Brand as={Link} to="/dashboard">Vijaya Nagara Finance</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/dashboard">
+                    <GiTakeMyMoney style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+                    Vijaya Nagara Finance
+                </Navbar.Brand>
                 <Nav className="ms-auto">
                     {auth?.loginid ? (
                         <Dropdown align="end">
