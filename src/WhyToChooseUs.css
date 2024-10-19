@@ -1,0 +1,20 @@
+
+.post-item {
+    border: 1px solid #ccc; /* Add a border for better visibility */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding inside the item */
+    text-align: center; /* Center the text */
+    transition: box-shadow 0.3s ease; /* Transition for hover effect */
+}
+
+.post-item:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
+
+.service-icon img {
+    margin-bottom: 15px; /* Space below the icon */
+}
+
+h5 {
+    font-weight: bold; /* Make the title bold */
+}

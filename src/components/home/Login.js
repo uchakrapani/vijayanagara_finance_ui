@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { AuthContext } from './AuthContext'; // Import the context
+import { AuthContext } from '../../AuthContext'; // Import the context
 import { Form, Button, Alert, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
