@@ -10,7 +10,7 @@ const Header = () => {
 
     const handleLogout = () => {
         logout();
-        navigate('/login');
+        navigate('/home/login');
     };
 
     const handleProfile = () => {
@@ -43,7 +43,7 @@ const Header = () => {
                             </Dropdown.Menu>
                         </Dropdown>
                     ) : (
-                        <Button variant="outline-light" onClick={() => navigate('/login')}>
+                        <Button variant="outline-light" onClick={() => navigate('/home/login')}>
                             Login
                         </Button>
                     )}

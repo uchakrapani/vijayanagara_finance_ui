@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setAuth(null);
-    navigate('/login'); // Redirect after logout
+    navigate('/home/login'); // Redirect after logout
   };
 
   return (
