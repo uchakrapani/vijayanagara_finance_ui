@@ -127,33 +127,12 @@ const LoanApplicationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Check if emailId, phone, pancard, or aadhar already exists
-      const checkResponse = await axios.get(`https://vijayanagara-finance-api.vercel.app/loanuser/check`, {
-        params: {
-          emailId: formData.emailId,
-          phone: formData.phone,
-          pancard: formData.pancard,
-          aadhar: formData.aadhar
-        }
-      });
-
-      const { emailExists, phoneExists, pancardExists, aadharExists } = checkResponse.data;
-
-      if (emailExists || phoneExists || pancardExists || aadharExists) {
-        let errorMessage = 'The following fields already exist: ';
-        if (emailExists) errorMessage += 'Email ';
-        if (phoneExists) errorMessage += 'Phone ';
-        if (pancardExists) errorMessage += 'PAN Card ';
-        if (aadharExists) errorMessage += 'Aadhaar ';
-        setError(errorMessage.trim());
-        return;
-      }
-
-      // Proceed with loan application submission if no duplicates are found
       const response = await axios.post(
         'https://vijayanagara-finance-api.vercel.app/loanuser',
         formData
       );
+      console.log(response.data);
+      console.log(response.data.reference_no);
       setReferenceNo(response.data.reference_no); // Set the reference number from response
       setError(''); // Clear any previous error
       // Clear form data after submission
@@ -187,7 +166,6 @@ const LoanApplicationForm = () => {
         </Alert>
       )}
       <Form onSubmit={handleSubmit}>
-        {/* Form Fields */}
         <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="fullName">
@@ -290,9 +268,6 @@ const LoanApplicationForm = () => {
               />
             </Form.Group>
           </Col>
-        </Row>
-
-        <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="state">
               <Form.Label>State</Form.Label>
@@ -303,30 +278,10 @@ const LoanApplicationForm = () => {
                 onChange={handleChange}
                 required
               >
-                <option value="">Select a state</option>
+                <option value="">Select State</option>
                 {states.map((state, index) => (
                   <option key={index} value={state}>
                     {state}
-                  </option>
-                ))}
-              </Form.Control>
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group controlId="city">
-              <Form.Label>City</Form.Label>
-              <Form.Control
-                as="select"
-                name="city"
-                value={formData.city}
-                onChange={handleChange}
-                required
-                disabled={!formData.state}
-              >
-                <option value="">Select a city</option>
-                {cities.map((city, index) => (
-                  <option key={index} value={city}>
-                    {city}
                   </option>
                 ))}
               </Form.Control>
@@ -336,6 +291,25 @@ const LoanApplicationForm = () => {
 
         <Row className="mb-3">
           <Col md={6}>
+            <Form.Group controlId="city">
+              <Form.Label>City</Form.Label>
+              <Form.Control
+                as="select"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select City</option>
+                {cities.map((city, index) => (
+                  <option key={index} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>            
+          </Col>
+          <Col md={6}>
             <Form.Group controlId="zipcode">
               <Form.Label>ZIP Code</Form.Label>
               <Form.Control
@@ -344,17 +318,17 @@ const LoanApplicationForm = () => {
                 value={formData.zipcode}
                 onChange={handleChange}
                 required
-                isInvalid={!zipCodeValid && formData.zipcode.length === 6}
+                isInvalid={!zipCodeValid && formData.zipcode}
               />
               <Form.Control.Feedback type="invalid">
-                Invalid ZIP code.
+                Entered zip code is not serviceable or city or state does not match with zip code.
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
         </Row>
 
         <Button variant="primary" type="submit" disabled={submitDisabled}>
-          Submit
+          Submit Application
         </Button>
       </Form>
     </Container>
