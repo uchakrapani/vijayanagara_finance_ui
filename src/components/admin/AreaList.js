@@ -18,7 +18,7 @@ const AreaList = () => {
       }
       const data = await response.json();
       console.log(data); // Log the data for debugging
-      setAreas(data.data); // Ensure data is set to an array
+      setAreas(data); // Ensure data is set to an array
     } catch (error) {
       setError(error.message);
     } finally {

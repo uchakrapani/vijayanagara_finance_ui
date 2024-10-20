@@ -14,6 +14,7 @@ import ErrorLogDetail from './ErrorLogDetail';
 import AdminList from './AdminList';
 import CreateAdmin from './CreateAdmin';
 import EditAdmin from './EditAdmin';
+import LoanUserList from './LoanUserList';
 
 const Dashboard = () => {
     return (
@@ -34,10 +35,11 @@ const Dashboard = () => {
                             <Route path="/create-area" element={<ProtectedRoute><CreateArea /></ProtectedRoute>} />
                             <Route path="/edit-area/:id" element={<ProtectedRoute><EditArea /></ProtectedRoute>} />
                             <Route path="/error-logs" element={<ProtectedRoute><ErrorLog /></ProtectedRoute>} />
-                            <Route path="/admin-list" element={<AdminList />} /> 
-                            <Route path="/create-admin" element={<CreateAdmin />} />
+                            <Route path="/admin-list" element={<ProtectedRoute><AdminList /></ProtectedRoute>} /> 
+                            <Route path="/create-admin" element={<ProtectedRoute><CreateAdmin /></ProtectedRoute>} />
+                            <Route path="/loanuser" element={<ProtectedRoute><LoanUserList /></ProtectedRoute>} />
                             <Route path="/edit-admin/:id" element={<ProtectedRoute><EditAdmin /></ProtectedRoute>} /> 
-                            <Route path="/error-logs/:id" element={<ErrorLogDetail />} /> 
+                            <Route path="/error-logs/:id" element={<ProtectedRoute><ErrorLogDetail /></ProtectedRoute>} /> 
                         </Routes>
                     </Col>
 

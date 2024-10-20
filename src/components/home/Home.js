@@ -8,10 +8,8 @@ import WhyChooseUs from '../../WhyChooseUs';
 const LandingPage = () => {
     return (
         <div>
-            <Container className="p-4">
-                <LandingBanner />
-                <WhyChooseUs />
-            </Container>
+            <LandingBanner />
+            <WhyChooseUs />
         </div>
     );
 };
