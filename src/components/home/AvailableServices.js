@@ -1,35 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Card, Container, Row, Col, Spinner, Alert } from 'react-bootstrap';
+import { Card, Container, Row, Col, Spinner, Alert, Button } from 'react-bootstrap';
 
-const AvailableServices = () => {
-  const [areas, setAreas] = useState([]);
+const RepayLoan = () => {
+  const [loanDetails, setLoanDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch areas where service is available
+  // Fetch loan repayment details
   useEffect(() => {
-    const fetchAreas = async () => {
+    const fetchLoanDetails = async () => {
       try {
-        const response = await axios.get(
-          'https://vijayanagara-finance-api.vercel.app/area'
-        );
-        const activeAreas = response.data.data.filter(area => area.status === 'active');
-        setAreas(activeAreas);
+        const response = await axios.get('https://vijayanagara-finance-api.vercel.app/loan-details'); // Example API endpoint
+        setLoanDetails(response.data);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching area data:', err);
-        setError('Failed to load service area data. Please try again later.');
+        console.error('Error fetching loan details:', err);
+        setError('Failed to load loan details. Please try again later.');
         setLoading(false);
       }
     };
 
-    fetchAreas();
+    fetchLoanDetails();
   }, []);
 
   return (
     <Container className="mt-5">
-      <h2 className="text-center mb-4">Our Service is Available in These Areas</h2>
+      <h2 className="text-center mb-4">Loan Repayment Details</h2>
 
       {loading ? (
         <div className="text-center">
@@ -39,22 +36,23 @@ const AvailableServices = () => {
         </div>
       ) : error ? (
         <Alert variant="danger">{error}</Alert>
-      ) : areas.length === 0 ? (
-        <Alert variant="info">No service areas are currently active.</Alert>
+      ) : loanDetails.length === 0 ? (
+        <Alert variant="info">No loan details available.</Alert>
       ) : (
         <Row>
-          {areas.map(area => (
-            <Col key={area._id} md={4} className="mb-4">
-              <Card className="h-100 shadow-sm">
+          {loanDetails.map((loan) => (
+            <Col key={loan._id} md={4} className="mb-4">
+              <Card className="h-100" style={{ border: '1px solid #007bff', borderRadius: '0.5rem', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}>
                 <Card.Body>
-                  <Card.Title className="text-center">{area.city}</Card.Title>
+                  <Card.Title className="text-center">{loan.loanType}</Card.Title>
                   <Card.Text>
-                    <strong>State:</strong> {area.state} <br />
-                    <strong>ZIP Code:</strong> {area.zipcode}
+                    <strong>Loan Amount:</strong> ₹{loan.amount} <br />
+                    <strong>Due Date:</strong> {loan.dueDate} <br />
+                    <strong>Status:</strong> {loan.status}
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-center">
-                  <small className="text-muted">Service Available</small>
+                  <Button variant="primary">Repay Now</Button>
                 </Card.Footer>
               </Card>
             </Col>
@@ -65,4 +63,4 @@ const AvailableServices = () => {
   );
 };
 
-export default AvailableServices;
+export default RepayLoan;

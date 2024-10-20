@@ -34,7 +34,7 @@ const Header = () => {
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/" className="text-primary">Home</Nav.Link>
                         <Nav.Link as={Link} to="/home/services" className="text-primary">Services</Nav.Link>
-                        <Nav.Link as={Link} to="/repay" className="text-primary">Repay Loan</Nav.Link>
+                        <Nav.Link as={Link} to="/home/repay-loan" className="text-primary">Repay Loan</Nav.Link>
                         <Nav.Link as={Link} to="/grievance" className="text-primary">Grievance</Nav.Link>
                         <Nav.Link as={Link} to="/contact" className="text-primary">Contact</Nav.Link>
                     </Nav>
@@ -42,7 +42,7 @@ const Header = () => {
                         <Link to="/home/loan-apply">
                             <Button className="btn btn-success">Apply Now</Button>
                         </Link>
-                        <Link to="/home/loan-apply">
+                        <Link to="/home/repay-loan">
                             <Button className="btn btn-danger ms-2">Repay Loan Now</Button>
                         </Link>
                     </div>

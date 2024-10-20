@@ -8,6 +8,7 @@ import Login from './Login';
 import LoanApplicationForm from './LoanApplicationForm';
 import AvailableServices from './AvailableServices';
 import Services from './Services';
+import RepayLoan from './RepayLoan';
 
 const HomeLanding = () => {
   return (
@@ -20,6 +21,7 @@ const HomeLanding = () => {
           <Route path="/loan-apply" element={<LoanApplicationForm />} />
           <Route path="/available-services" element={<AvailableServices />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/repay-loan" element={<RepayLoan />} />
         </Routes>
       </Container>
       <Footer />
