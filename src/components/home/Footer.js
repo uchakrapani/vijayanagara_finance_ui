@@ -22,7 +22,7 @@ const Footer = () => {
                     </Col>
                     <Col md={4} className="mb-4">
                         <h5>Quick Links</h5>
-                        <p><a href="#services" className="text-dark">Services</a></p>
+                        <p><Link to="/home/services" className="text-dark">Services</Link></p>
                         <p><a href="#about" className="text-dark">About Us</a></p>
                         <p><a href="#contact" className="text-dark">Contact</a></p>
                     </Col>
