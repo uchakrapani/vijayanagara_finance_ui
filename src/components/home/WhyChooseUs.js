@@ -26,15 +26,20 @@ const WhyChooseUs = () => {
     return (
         <>
             <Container className="my-5">
-                <h2 style={{ textAlign: 'center', paddingTop: '43px' }}>
-                    Loan for Solving Temporary Financial Shortage
-                </h2>
+                <Row className="text-center my-5">
+                    <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#007bff' }}>
+                        Loan for Solving Temporary Financial Shortage
+                    </h2>
+                    <p style={{ fontSize: '1.1rem', color: '#555', maxWidth: '600px', margin: '0 auto' }}>
+                        Get the financial support you need with our quick and hassle-free loan options. Whether it’s for unexpected expenses or urgent needs, we’re here to provide you with the assistance you require to overcome temporary financial challenges.
+                    </p>
+                </Row   >
                 <Row className="mt-4">
                     {services.map((service, index) => (
                         <Col md={4} key={index} className="mb-4">
-                            <div className="post-item border rounded shadow p-3"> {/* Added border, rounded corners, padding, and shadow */}
-                                <div className="post-item-inner">
-                                    <div className="post-thumb text-center"> {/* Center text and images */}
+                            <div className="post-item border rounded shadow d-flex flex-column p-3" style={{ height: '100%' }}> {/* Added flex-column and height 100% */}
+                                <div className="post-item-inner flex-grow-1"> {/* Ensure the inner div grows to fill the available space */}
+                                    <div className="post-thumb text-center">
                                         <div className="round-1">
                                             <div className="services-circle-wrapper">
                                                 <div className="services-circle"></div>
@@ -55,53 +60,53 @@ const WhyChooseUs = () => {
                                     <div className="post-content text-center"> {/* Center text for better alignment */}
                                         <h5>{service.title}</h5>
                                         <p>{service.description}</p>
-                                        <Link to="/home/loan-apply">
-                                            <Button className="btn btn-success">Apply Now</Button>
-                                        </Link>
                                     </div>
                                 </div>
+                                <Link to="/home/loan-apply" className="mt-auto"> {/* Ensure the button stays at the bottom */}
+                                    <Button className="btn btn-success w-100">Apply Now</Button> {/* Full width button */}
+                                </Link>
                             </div>
                         </Col>
                     ))}
                 </Row>
             </Container>
             <Container className="my-5 border rounded p-4" style={{ border: '2px solid #007bff', boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)' }}>
-            <Row>
-                <Col lg={6} md={12} className="d-flex align-items-center">
-                    <div className="post-thumb">
-                        <img
-                            src="https://image.freepik.com/free-photo/why-choose-us_220873-5578.jpg" // Replace with your image URL
-                            style={{ width: '100%', height: 'auto' }} // Ensure the image is responsive
-                            alt="Consulting"
-                        />
-                    </div>
-                </Col>
-                <Col lg={6} md={12} className="d-flex align-items-center">
-                    <div className="post-content">
-                        <h2>Why Choose Us?</h2>
-                        <p>We provide distinguished services where our team of experts helps you get an instant loan without any difficulties.</p>
-                        <ul className="list-unstyled">
-                            <li>
-                                <FaCheck /> <b>Team of Experts:</b>
-                                <p>Expert professionals accomplish our services; they help you get a loan without consuming your time.</p>
-                            </li>
-                            <li>
-                                <FaCheck /> <b>Transparency:</b>
-                                <p>There is complete transparency in our services and costs. There are no hidden charges on the loan amount.</p>
-                            </li>
-                            <li>
-                                <FaCheck /> <b>Simple Steps to Apply:</b>
-                                <p>The application for the loan is extremely easy. There are some simple steps to applying for a loan.</p>
-                            </li>
-                            <li>
-                                <FaCheck /> <b>Precise Information:</b>
-                                <p>Our executive shares the precise information for the loan services. So, there are no chances of ambiguity.</p>
-                            </li>
-                        </ul>
-                    </div>
-                </Col>
-            </Row>
-        </Container>
+                <Row>
+                    <Col lg={6} md={12} className="d-flex align-items-center">
+                        <div className="post-thumb">
+                            <img
+                                src="https://image.freepik.com/free-photo/why-choose-us_220873-5578.jpg" // Replace with your image URL
+                                style={{ width: '100%', height: 'auto' }} // Ensure the image is responsive
+                                alt="Consulting"
+                            />
+                        </div>
+                    </Col>
+                    <Col lg={6} md={12} className="d-flex align-items-center">
+                        <div className="post-content">
+                            <h2>Why Choose Us?</h2>
+                            <p>We provide distinguished services where our team of experts helps you get an instant loan without any difficulties.</p>
+                            <ul className="list-unstyled">
+                                <li>
+                                    <FaCheck /> <b>Team of Experts:</b>
+                                    <p>Expert professionals accomplish our services; they help you get a loan without consuming your time.</p>
+                                </li>
+                                <li>
+                                    <FaCheck /> <b>Transparency:</b>
+                                    <p>There is complete transparency in our services and costs. There are no hidden charges on the loan amount.</p>
+                                </li>
+                                <li>
+                                    <FaCheck /> <b>Simple Steps to Apply:</b>
+                                    <p>The application for the loan is extremely easy. There are some simple steps to applying for a loan.</p>
+                                </li>
+                                <li>
+                                    <FaCheck /> <b>Precise Information:</b>
+                                    <p>Our executive shares the precise information for the loan services. So, there are no chances of ambiguity.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
         </>
     );
 };

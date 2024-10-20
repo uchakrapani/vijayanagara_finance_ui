@@ -157,7 +157,7 @@ const LoanApplicationForm = () => {
   };
 
   return (
-    <Container className="mt-5 pt-4">
+    <Container className="mt-5 pt-4 border border-primary rounded p-4" style={{ backgroundColor: '#f9f9f9' }}>
       <h2 className="text-center mb-4">Loan Application Form</h2>
       {error && <Alert variant="danger">{error}</Alert>} {/* Display error message */}
       {referenceNo && (
@@ -165,6 +165,7 @@ const LoanApplicationForm = () => {
           Loan application submitted successfully! Your reference number is: {referenceNo}
         </Alert>
       )}
+      <hr style={{ border: '1px solid #007bff', margin: '20px 0' }} /> {/* Divider */}
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Col md={6}>
@@ -215,6 +216,7 @@ const LoanApplicationForm = () => {
                 value={formData.pancard}
                 onChange={handleChange}
                 required
+                placeholder="ABCDE1234F" // Placeholder for PAN format
                 isInvalid={!panPattern.test(formData.pancard)}
               />
               <Form.Control.Feedback type="invalid">
@@ -234,6 +236,7 @@ const LoanApplicationForm = () => {
                 value={formData.aadhar}
                 onChange={handleChange}
                 required
+                placeholder="123456789012" // Placeholder for Aadhaar format
                 isInvalid={!aadharPattern.test(formData.aadhar)}
               />
               <Form.Control.Feedback type="invalid">

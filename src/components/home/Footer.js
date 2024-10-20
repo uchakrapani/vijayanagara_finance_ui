@@ -1,6 +1,8 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Navbar } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa'; // Import social icons
+import { GiTakeMyMoney } from 'react-icons/gi';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -8,8 +10,15 @@ const Footer = () => {
             <Container>
                 <Row>
                     <Col md={4} className="mb-4">
-                        <h5>Vijaya Nagara Finance</h5>
-                        <p>Your trusted financial partner.</p>
+                        <h3 className="text-primary">
+                            <GiTakeMyMoney style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+                            Vijaya Nagara Finance
+                        </h3>
+                        <p>Get quick access to funds with our Instant Loan service. 
+                            Designed for your urgent financial needs, our seamless application 
+                            process ensures that you receive the amount you need without the hassle. 
+                            Apply now and experience financial 
+                            relief in no time!</p>
                     </Col>
                     <Col md={4} className="mb-4">
                         <h5>Quick Links</h5>
