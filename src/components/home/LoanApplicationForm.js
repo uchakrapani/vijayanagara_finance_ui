@@ -151,7 +151,7 @@ const LoanApplicationForm = () => {
       });
     } catch (error) {
       console.error('Error submitting loan application:', error);
-      setError('Failed to submit loan application. Please try again later.');
+      setError('Failed to submit loan application. Please try again later OR please check emailid/phone/aadhar/pancard detail already exists.');
       setReferenceNo(''); // Clear reference number on error
     }
   };
