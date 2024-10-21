@@ -16,7 +16,7 @@ const DashboardNav = () => {
                 <FaUserCircle style={{ marginRight: '8px' }} /> Administrators
             </Nav.Link>
             <Nav.Link as={Link} to="/dashboard/loanuser">
-                <FaMoneyBill style={{ marginRight: '8px' }} /> Loan Users
+                <FaMoneyBill style={{ marginRight: '8px' }} /> Loan Requests
             </Nav.Link>
             <Nav.Link as={Link} to="/dashboard/error-logs">
                 <FaExclamationTriangle style={{ marginRight: '8px' }} /> Error Logs
