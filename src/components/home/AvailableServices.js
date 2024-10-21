@@ -1,66 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Card, Container, Row, Col, Spinner, Alert, Button } from 'react-bootstrap';
+import { Container, Table, Alert, Spinner } from 'react-bootstrap';
 
-const RepayLoan = () => {
-  const [loanDetails, setLoanDetails] = useState([]);
+const AvailableServices = () => {
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
 
-  // Fetch loan repayment details
   useEffect(() => {
-    const fetchLoanDetails = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('https://vijayanagara-finance-api.vercel.app/loan-details'); // Example API endpoint
-        setLoanDetails(response.data);
-        setLoading(false);
+        const response = await axios.get('https://vijayanagara-finance-api.vercel.app/area');
+        if (Array.isArray(response.data)) {
+          setData(response.data.filter(area => area.status === 'active')); // Only active areas
+        } else {
+          throw new Error('Data is not an array');
+        }
       } catch (err) {
-        console.error('Error fetching loan details:', err);
-        setError('Failed to load loan details. Please try again later.');
+        setError('Failed to fetch data. Please try again later.');
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchLoanDetails();
+    fetchData();
   }, []);
 
   return (
     <Container className="mt-5">
-      <h2 className="text-center mb-4">Loan Repayment Details</h2>
-
+      <h2 className="text-center mb-4">Available Cities and ZIP Codes for Loan Services</h2>
+      
       {loading ? (
         <div className="text-center">
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
+          <Spinner animation="border" role="status" />
+          <span className="ms-2">Loading...</span>
         </div>
       ) : error ? (
         <Alert variant="danger">{error}</Alert>
-      ) : loanDetails.length === 0 ? (
-        <Alert variant="info">No loan details available.</Alert>
       ) : (
-        <Row>
-          {loanDetails.map((loan) => (
-            <Col key={loan._id} md={4} className="mb-4">
-              <Card className="h-100" style={{ border: '1px solid #007bff', borderRadius: '0.5rem', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}>
-                <Card.Body>
-                  <Card.Title className="text-center">{loan.loanType}</Card.Title>
-                  <Card.Text>
-                    <strong>Loan Amount:</strong> ₹{loan.amount} <br />
-                    <strong>Due Date:</strong> {loan.dueDate} <br />
-                    <strong>Status:</strong> {loan.status}
-                  </Card.Text>
-                </Card.Body>
-                <Card.Footer className="text-center">
-                  <Button variant="primary">Repay Now</Button>
-                </Card.Footer>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+        <Table striped bordered hover responsive>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>City</th>
+              <th>State</th>
+              <th>ZIP Code</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item, index) => (
+              <tr key={item._id}>
+                <td>{index + 1}</td>
+                <td>{item.city}</td>
+                <td>{item.state}</td>
+                <td>{item.zipcode}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       )}
     </Container>
   );
 };
 
-export default RepayLoan;
+export default AvailableServices;
