@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Card, Alert, Spinner } from 'react-bootstrap';
 
 const LoanDetail = () => {
+  const { loanId } = useParams(); // Get the loan ID from the URL
   const [loanDetail, setLoanDetail] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const loanId = '6714762e600a2f001c4e1221'; // Replace with dynamic ID if needed
 
   useEffect(() => {
     const fetchLoanDetail = async () => {
