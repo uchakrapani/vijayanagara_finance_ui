@@ -68,11 +68,6 @@ const ContactUs = () => {
         <Col md={8}>
           <h2>Contact Requests</h2>
         </Col>
-        <Col md={4} className="text-end">
-          <Link to="/dashboard/create-contact">
-            <Button variant="primary">Create New Contact</Button>
-          </Link>
-        </Col>
       </Row>
       <Table striped bordered hover>
         <thead>
