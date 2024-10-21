@@ -43,7 +43,7 @@ const ContactUs = () => {
 
     if (confirmDelete) {
       try {
-        const response = await fetch(`http://localhost:5000/api/contactus/${id}`, {
+        const response = await fetch(`https://vijayanagara-finance-api.vercel.app/contact/${id}`, {
           method: 'DELETE',
         });
 
