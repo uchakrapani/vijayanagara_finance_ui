@@ -182,7 +182,6 @@ const LoanApplicationForm = () => {
                 value={formData.emailId}
                 onChange={handleChange}
                 required
-                disabled // Disable editing
               />
             </Form.Group>
           </Col>
