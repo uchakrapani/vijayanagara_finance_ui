@@ -24,7 +24,7 @@ const Footer = () => {
                         <h5>Quick Links</h5>
                         <p><Link to="/home/services" className="text-dark">Services</Link></p>
                         <p><a href="#about" className="text-dark">About Us</a></p>
-                        <p><a href="#contact" className="text-dark">Contact</a></p>
+                        <p><Link to="/home/contact" className="text-dark">Contact</Link></p>
                     </Col>
                     <Col md={4} className="mb-4">
                         <h5>Follow Us</h5>
