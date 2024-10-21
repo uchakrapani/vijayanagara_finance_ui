@@ -12,7 +12,7 @@ const ContactUs = () => {
   // Fetch contact submissions from the API
   const fetchContacts = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/contactus'); // Update with your API URL
+      const response = await fetch('https://vijayanagara-finance-api.vercel.app/contact'); // Update with your API URL
       if (!response.ok) {
         throw new Error('Failed to fetch contacts');
       }
