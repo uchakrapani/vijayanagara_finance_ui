@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Container, Spinner, Alert } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons for Edit and Delete
 
 const LoanUserList = () => {
   const [loanUsers, setLoanUsers] = useState([]);
@@ -48,6 +50,7 @@ const LoanUserList = () => {
               <th>City</th>
               <th>ZIP Code</th>
               <th>Status</th>
+              <th>Actions</th> {/* Add a new column for actions */}
             </tr>
           </thead>
           <tbody>
@@ -59,6 +62,11 @@ const LoanUserList = () => {
                   <td>{user.city}</td>
                   <td>{user.zipcode}</td>
                   <td>{user.status}</td>
+                  <td>
+                    <Button variant="warning" className="me-2" onClick={() => navigate(`/dashboard/edit-loan-user/${user._id}`)}>
+                      <FaEdit /> {/* Edit Icon */}
+                    </Button>
+                  </td>
                 </tr>
               ))
             ) : (
