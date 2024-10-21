@@ -48,25 +48,35 @@ const LoanDetail = () => {
       <h2>Loan Details</h2>
       <Card className="mb-4">
         <Card.Body>
+          <h5>Personal Information</h5>
           <Row>
             <Col md={6}>
-              <h5>Personal Information</h5>
               <p><strong>Full Name:</strong> {loanDetail.fullName}</p>
               <p><strong>Email:</strong> {loanDetail.emailId}</p>
               <p><strong>Phone:</strong> {loanDetail.phone}</p>
+              <p><strong>Login ID:</strong> {loanDetail.loginId}</p> {/* Added Login ID */}
+            </Col>
+            <Col md={6}>
               <p><strong>PAN Card:</strong> {loanDetail.pancard}</p>
               <p><strong>Aadhar:</strong> {loanDetail.aadhar}</p>
             </Col>
+          </Row>
+
+          <h5>Loan Information</h5>
+          <Row>
             <Col md={6}>
-              <h5>Loan Information</h5>
               <p><strong>Salary:</strong> ₹{loanDetail.salary}</p>
               <p><strong>Loan Amount Requested:</strong> ₹{loanDetail.loan_amount_req}</p>
+            </Col>
+            <Col md={6}>
               <p><strong>City:</strong> {loanDetail.city}</p>
               <p><strong>Zip Code:</strong> {loanDetail.zipcode}</p>
               <p><strong>Status:</strong> {loanDetail.status}</p>
               <p><strong>Reference No:</strong> {loanDetail.reference_no}</p>
             </Col>
           </Row>
+
+          <h5>Additional Information</h5>
           <Row>
             <Col>
               <p><strong>Date Created:</strong> {new Date(loanDetail.datecreated).toLocaleString()}</p>
