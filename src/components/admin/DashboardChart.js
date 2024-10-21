@@ -10,12 +10,12 @@ const DashboardChart = () => {
   const fetchAreaData = async () => {
     try {
       const response = await fetch('https://vijayanagara-finance-api.vercel.app/area');
-      const result = await response.json(); // Get the JSON response
-      console.log('Fetched area data:', result); // Log the fetched area data
+      const result = await response.json(); 
+      console.log('Fetched area data:', result);
 
-      // Access the data array from the result
+      // Ensure the data is in the expected format
       if (Array.isArray(result.data)) {
-        setAreaData(result.data); // Set the area data only if it's an array
+        setAreaData(result.data); 
       } else {
         console.error('Area data is not an array:', result.data);
       }
@@ -29,9 +29,9 @@ const DashboardChart = () => {
     try {
       const response = await fetch('https://vijayanagara-finance-api.vercel.app/admin');
       const data = await response.json();
-      console.log('Fetched admin data:', data); // Log the fetched admin data
+      console.log('Fetched admin data:', data);
       if (Array.isArray(data)) {
-        setAdminData(data); // Set the admin data only if it's an array
+        setAdminData(data); 
       } else {
         console.error('Admin data is not an array:', data);
       }
@@ -45,7 +45,7 @@ const DashboardChart = () => {
     fetchAdminData();
   }, []);
 
-  // Process data for charts only if it's an array
+  // Process data for charts
   const areaStatusCounts = areaData.reduce((acc, area) => {
     acc[area.status] = (acc[area.status] || 0) + 1;
     return acc;
@@ -73,7 +73,7 @@ const DashboardChart = () => {
           <h3>Area Status Distribution</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
-              <Pie data={areaChartData} cx="50%" cy="50%" outerRadius={80} fill="#8884d8" dataKey="value">
+              <Pie data={areaChartData} cx="50%" cy="50%" outerRadius={80} dataKey="value">
                 {areaChartData.map((entry, index) => (
                   <Cell key={`area-cell-${index}`} fill={['#0088FE', '#00C49F', '#FFBB28'][index % 3]} />
                 ))}
@@ -87,7 +87,7 @@ const DashboardChart = () => {
           <h3>Admin Status Distribution</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
-              <Pie data={adminChartData} cx="50%" cy="50%" outerRadius={80} fill="#82ca9d" dataKey="value">
+              <Pie data={adminChartData} cx="50%" cy="50%" outerRadius={80} dataKey="value">
                 {adminChartData.map((entry, index) => (
                   <Cell key={`admin-cell-${index}`} fill={['#FF6384', '#36A2EB', '#FFCE56'][index % 3]} />
                 ))}
