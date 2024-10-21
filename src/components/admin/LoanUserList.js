@@ -45,12 +45,7 @@ const LoanUserList = () => {
             <tr>
               <th>Reference No</th>
               <th>Full Name</th>
-              <th>PAN Card</th>
-              <th>Aadhaar</th>
-              <th>Salary</th>
-              <th>Loan Amount Requested</th>
               <th>City</th>
-              <th>State</th>
               <th>ZIP Code</th>
               <th>Status</th>
             </tr>
@@ -61,12 +56,7 @@ const LoanUserList = () => {
                 <tr key={user._id}>
                   <td>{user.reference_no}</td>
                   <td>{user.fullName}</td>
-                  <td>{user.pancard}</td>
-                  <td>{user.aadhar}</td>
-                  <td>{user.salary}</td>
-                  <td>{user.loan_amount_req}</td>
                   <td>{user.city}</td>
-                  <td>{user.State}</td>
                   <td>{user.zipcode}</td>
                   <td>{user.status}</td>
                 </tr>
