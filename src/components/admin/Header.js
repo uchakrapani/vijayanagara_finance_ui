@@ -14,14 +14,6 @@ const Header = () => {
         navigate('/home/login');
     };
 
-    const handleProfile = () => {
-        navigate('/profile');
-    };
-
-    const handleResetPassword = () => {
-        navigate('/reset-password');
-    };
-
     return (
         <Navbar style={{ backgroundColor: '#003366' }} variant="dark" className="mb-4">
             <Container fluid>
@@ -47,9 +39,6 @@ const Header = () => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item onClick={handleProfile}>Profile</Dropdown.Item>
-                                <Dropdown.Item onClick={handleResetPassword}>Reset Password</Dropdown.Item>
-                                <Dropdown.Divider />
                                 <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
