@@ -1,17 +1,19 @@
 import React, { useState, useContext } from 'react';
-import { AuthContext } from '../../AuthContext'; // Import the context
-import { Form, Button, Alert, Container, Row, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { AuthContext } from '../../AuthContext';
+import { Form, Button, Alert, Container, Row, Col, Spinner } from 'react-bootstrap'; // Import Spinner
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const { login } = useContext(AuthContext); // Get the login function from context
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [loading, setLoading] = useState(false); // Loading state
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading
 
     const loginData = {
       loginid: loginId,
@@ -28,15 +30,16 @@ const Login = () => {
       });
 
       if (response.ok) {
-        // On successful login, use the context's login function
         login(loginData);
-        navigate('/dashboard'); // Redirect to the dashboard after successful login
+        navigate('/dashboard');
       } else {
         const result = await response.json();
         setErrorMessage(result.message || 'Login failed. Please check your credentials.');
       }
     } catch (error) {
       setErrorMessage('Error connecting to the server. Please try again later.');
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -69,8 +72,15 @@ const Login = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
-              Login
+            <Button variant="primary" type="submit" disabled={loading}>
+              {loading ? (
+                <>
+                  <Spinner animation="border" size="sm" /> {/* Spinner */}
+                  {' Loading...'}
+                </>
+              ) : (
+                'Login'
+              )}
             </Button>
           </Form>
         </Col>
