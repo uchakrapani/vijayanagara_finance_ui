@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { Navbar, Container, Nav, Dropdown, Button } from 'react-bootstrap';
+import { Navbar, Container, Nav, Dropdown } from 'react-bootstrap';
 import { AuthContext } from '../../AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { GiTakeMyMoney } from 'react-icons/gi';
+import { FaUserCircle } from 'react-icons/fa'; // Import user icon
 
 const Header = () => {
     const { auth, logout } = useContext(AuthContext);
@@ -22,7 +23,7 @@ const Header = () => {
     };
 
     return (
-        <Navbar style={{ backgroundColor: '#003366' }} variant="dark" className="mb-4"> {/* Navy Blue */}
+        <Navbar style={{ backgroundColor: '#003366' }} variant="dark" className="mb-4">
             <Container fluid>
                 <Navbar.Brand as={Link} to="/dashboard">
                     <GiTakeMyMoney style={{ marginRight: '8px', verticalAlign: 'middle' }} />
@@ -31,7 +32,17 @@ const Header = () => {
                 <Nav className="ms-auto">
                     {auth?.loginid ? (
                         <Dropdown align="end">
-                            <Dropdown.Toggle variant="outline-light" id="dropdown-basic">
+                            <Dropdown.Toggle
+                                variant="link" // Use 'link' variant to remove button styling
+                                id="dropdown-basic"
+                                style={{
+                                    color: 'white',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    padding: '0',
+                                }}
+                            >
+                                <FaUserCircle style={{ marginRight: '8px', fontSize: '1.5em' }} /> {/* User Icon */}
                                 Welcome, {auth.loginid}
                             </Dropdown.Toggle>
 
