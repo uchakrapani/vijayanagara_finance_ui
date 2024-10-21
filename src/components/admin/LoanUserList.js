@@ -8,6 +8,7 @@ const LoanUserList = () => {
   const [loanUsers, setLoanUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // To navigate to other pages
 
   // Fetch loan user data
   useEffect(() => {
