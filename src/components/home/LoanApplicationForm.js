@@ -25,7 +25,6 @@ const LoanApplicationForm = () => {
   const [error, setError] = useState('');
 
   // Regex patterns for PAN and Aadhaar validation
-  const panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
   const aadharPattern = /^[0-9]{12}$/;
 
   // Fetch states from the area API
@@ -95,12 +94,10 @@ const LoanApplicationForm = () => {
 
   // Enable submit button only when all validations pass
   useEffect(() => {
-    const isPanValid = panPattern.test(formData.pancard);
     if (
       formData.fullName &&
       formData.emailId &&
       formData.phone &&
-      isPanValid &&
       aadharPattern.test(formData.aadhar) &&
       formData.salary &&
       formData.loan_amount_req &&
@@ -126,12 +123,7 @@ const LoanApplicationForm = () => {
 
   // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Check again if PAN card is valid before submitting
-    if (!panPattern.test(formData.pancard)) {
-      setError('Please enter a valid PAN card number.');
-      return; // Prevent submission
-    }
+    e.preventDefault();  
 
     try {
       const response = await axios.post(
@@ -223,7 +215,6 @@ const LoanApplicationForm = () => {
                 onChange={handleChange}
                 required
                 placeholder="ABCDE1234F" // Placeholder for PAN format
-                isInvalid={!panPattern.test(formData.pancard)}
               />
               <Form.Control.Feedback type="invalid">
                 Invalid PAN card format.
