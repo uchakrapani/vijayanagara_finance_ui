@@ -15,6 +15,8 @@ const LoanApplicationForm = () => {
     state: '',
     zipcode: '',
     status: 'submitted',
+    password: '',
+    confirmPassword: '',
   });
 
   const [zipCodeValid, setZipCodeValid] = useState(false);
@@ -24,10 +26,8 @@ const LoanApplicationForm = () => {
   const [referenceNo, setReferenceNo] = useState('');
   const [error, setError] = useState('');
 
-  // Regex patterns for PAN and Aadhaar validation
   const aadharPattern = /^[0-9]{12}$/;
 
-  // Fetch states from the area API
   useEffect(() => {
     const fetchStates = async () => {
       try {
@@ -35,18 +35,14 @@ const LoanApplicationForm = () => {
         if (Array.isArray(response.data)) {
           const uniqueStates = [...new Set(response.data.map(area => area.state))];
           setStates(uniqueStates);
-        } else {
-          console.error('Area data is not an array:', response.data);
         }
       } catch (error) {
         console.error('Error fetching states:', error);
       }
     };
-
     fetchStates();
   }, []);
 
-  // Fetch cities based on selected state
   useEffect(() => {
     const fetchCities = async () => {
       if (formData.state) {
@@ -54,8 +50,6 @@ const LoanApplicationForm = () => {
           const response = await axios.get(`https://vijayanagara-finance-api.vercel.app/area?state=${formData.state}`);
           if (Array.isArray(response.data)) {
             setCities(response.data.map(area => area.city));
-          } else {
-            console.error('Area data is not an array:', response.data);
           }
         } catch (error) {
           console.error('Error fetching cities:', error);
@@ -64,11 +58,9 @@ const LoanApplicationForm = () => {
         setCities([]);
       }
     };
-
     fetchCities();
   }, [formData.state]);
 
-  // ZIP code validation
   useEffect(() => {
     const validateZipcode = async () => {
       if (formData.zipcode.length === 6) {
@@ -92,7 +84,6 @@ const LoanApplicationForm = () => {
     validateZipcode();
   }, [formData.zipcode, formData.city, formData.state]);
 
-  // Enable submit button only when all validations pass
   useEffect(() => {
     if (
       formData.fullName &&
@@ -103,7 +94,9 @@ const LoanApplicationForm = () => {
       formData.loan_amount_req &&
       formData.city &&
       formData.state &&
-      zipCodeValid
+      zipCodeValid &&
+      formData.password &&
+      formData.password === formData.confirmPassword
     ) {
       setSubmitDisabled(false);
     } else {
@@ -111,7 +104,6 @@ const LoanApplicationForm = () => {
     }
   }, [formData, zipCodeValid]);
 
-  // Handle form data changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -121,19 +113,20 @@ const LoanApplicationForm = () => {
     setError(''); // Reset error on input change
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();  
+
+    // Set loginId to emailId before submission
+    const dataToSubmit = { ...formData, loginId: formData.emailId };
 
     try {
       const response = await axios.post(
         'https://vijayanagara-finance-api.vercel.app/loanuser',
-        formData
+        dataToSubmit
       );
       console.log(response.data);
-      setReferenceNo(response.data.reference_no); // Set the reference number from response
-      setError(''); // Clear any previous error
-      // Clear form data after submission
+      setReferenceNo(response.data.reference_no);
+      setError('');
       setFormData({
         fullName: '',
         emailId: '',
@@ -146,24 +139,26 @@ const LoanApplicationForm = () => {
         state: '',
         zipcode: '',
         status: 'submitted',
+        password: '',
+        confirmPassword: '',
       });
     } catch (error) {
       console.error('Error submitting loan application:', error);
-      setError('Failed to submit loan application. Please try again later OR please check emailid/phone/aadhar/pancard detail already exists.');
-      setReferenceNo(''); // Clear reference number on error
+      setError('Failed to submit loan application. Please try again later OR check your details.');
+      setReferenceNo('');
     }
   };
 
   return (
     <Container className="mt-5 pt-4 border border-primary rounded p-4" style={{ backgroundColor: '#f9f9f9' }}>
       <h2 className="text-center mb-4">Loan Application Form</h2>
-      {error && <Alert variant="danger">{error}</Alert>} {/* Display error message */}
+      {error && <Alert variant="danger">{error}</Alert>}
       {referenceNo && (
         <Alert variant="success" className="mt-4">
           Loan application submitted successfully! Your reference number is: {referenceNo}
         </Alert>
       )}
-      <hr style={{ border: '1px solid #007bff', margin: '20px 0' }} /> {/* Divider */}
+      <hr style={{ border: '1px solid #007bff', margin: '20px 0' }} />
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Col md={6}>
@@ -180,13 +175,14 @@ const LoanApplicationForm = () => {
           </Col>
           <Col md={6}>
             <Form.Group controlId="emailId">
-              <Form.Label>Email ID</Form.Label>
+              <Form.Label>Email ID (Login ID)</Form.Label>
               <Form.Control
                 type="email"
                 name="emailId"
                 value={formData.emailId}
                 onChange={handleChange}
                 required
+                disabled // Disable editing
               />
             </Form.Group>
           </Col>
@@ -214,11 +210,8 @@ const LoanApplicationForm = () => {
                 value={formData.pancard}
                 onChange={handleChange}
                 required
-                placeholder="ABCDE1234F" // Placeholder for PAN format
+                placeholder="ABCDE1234F"
               />
-              <Form.Control.Feedback type="invalid">
-                Invalid PAN card format.
-              </Form.Control.Feedback>
             </Form.Group>
           </Col>
         </Row>
@@ -233,7 +226,7 @@ const LoanApplicationForm = () => {
                 value={formData.aadhar}
                 onChange={handleChange}
                 required
-                placeholder="123456789012" // Placeholder for Aadhaar format
+                placeholder="123456789012"
                 isInvalid={!aadharPattern.test(formData.aadhar)}
               />
               <Form.Control.Feedback type="invalid">
@@ -322,6 +315,37 @@ const LoanApplicationForm = () => {
               />
               <Form.Control.Feedback type="invalid">
                 Entered zip code is not serviceable or city or state does not match with zip code.
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row className="mb-3">
+          <Col md={6}>
+            <Form.Group controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group controlId="confirmPassword">
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+                isInvalid={formData.password !== formData.confirmPassword}
+              />
+              <Form.Control.Feedback type="invalid">
+                Passwords do not match.
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
