@@ -15,6 +15,7 @@ import AdminList from './AdminList';
 import CreateAdmin from './CreateAdmin';
 import EditAdmin from './EditAdmin';
 import LoanUserList from './LoanUserList';
+import ContactUs from './ContactUs';
 
 const Dashboard = () => {
     return (
@@ -38,6 +39,7 @@ const Dashboard = () => {
                             <Route path="/admin-list" element={<ProtectedRoute><AdminList /></ProtectedRoute>} /> 
                             <Route path="/create-admin" element={<ProtectedRoute><CreateAdmin /></ProtectedRoute>} />
                             <Route path="/loanuser" element={<ProtectedRoute><LoanUserList /></ProtectedRoute>} />
+                            <Route path="/contact" element={<ProtectedRoute><ContactUs /></ProtectedRoute>} />
                             <Route path="/edit-admin/:id" element={<ProtectedRoute><EditAdmin /></ProtectedRoute>} /> 
                             <Route path="/error-logs/:id" element={<ProtectedRoute><ErrorLogDetail /></ProtectedRoute>} /> 
                         </Routes>
