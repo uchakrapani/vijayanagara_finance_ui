@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Container, Alert } from 'react-bootstrap';
+import { Form, Button, Container, Alert, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 const CreateAdmin = () => {
@@ -32,7 +32,7 @@ const CreateAdmin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic front-end validation to ensure all required fields are filled
+    // Basic validation
     if (!formData.userid || !formData.fullname || !formData.email || !formData.phone) {
       setError("All fields are required.");
       return;
@@ -53,13 +53,12 @@ const CreateAdmin = () => {
 
       setSuccess(true);
       setTimeout(() => {
-        navigate('/dashboard/admin'); // Redirect to admin list after 2 seconds
+        navigate('/dashboard/admin'); // Redirect after 2 seconds
       }, 2000);
     } catch (error) {
       setError(error.message);
     }
   };
-
 
   return (
     <Container>
@@ -67,97 +66,117 @@ const CreateAdmin = () => {
       {error && <Alert variant="danger">{error}</Alert>}
       {success && <Alert variant="success">Admin created successfully!</Alert>}
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formUserId" className="mb-3">
-          <Form.Label>User ID</Form.Label>
-          <Form.Control
-            type="text"
-            name="userid"
-            value={formData.userid}
-            onChange={handleChange}
-            placeholder="Enter User ID"
-            required
-          />
-        </Form.Group>
+        <Row>
+          <Col md={6}>
+            <Form.Group controlId="formUserId" className="mb-3">
+              <Form.Label>User ID</Form.Label>
+              <Form.Control
+                type="text"
+                name="userid"
+                value={formData.userid}
+                onChange={handleChange}
+                placeholder="Enter User ID"
+                required
+              />
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group controlId="formFullName" className="mb-3">
+              <Form.Label>Full Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="fullname"
+                value={formData.fullname}
+                onChange={handleChange}
+                placeholder="Enter Full Name"
+                required
+              />
+            </Form.Group>
+          </Col>
+        </Row>
 
-        <Form.Group controlId="formFullName" className="mb-3">
-          <Form.Label>Full Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="fullname"
-            value={formData.fullname}
-            onChange={handleChange}
-            placeholder="Enter Full Name"
-            required
-          />
-        </Form.Group>
+        <Row>
+          <Col md={6}>
+            <Form.Group controlId="formEmail" className="mb-3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter Email"
+                required
+              />
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group controlId="formPhone" className="mb-3">
+              <Form.Label>Phone</Form.Label>
+              <Form.Control
+                type="text"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="Enter Phone"
+                required
+              />
+            </Form.Group>
+          </Col>
+        </Row>
 
-        <Form.Group controlId="formEmail" className="mb-3">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter Email"
-            required
-          />
-        </Form.Group>
+        <Row>
+          <Col md={6}>
+            <Form.Group controlId="formLoginId" className="mb-3">
+              <Form.Label>Login ID</Form.Label>
+              <Form.Control
+                type="text"
+                name="loginid"
+                value={formData.loginid}
+                onChange={handleChange}
+                placeholder="Enter Login ID"
+                required
+              />
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group controlId="formPassword" className="mb-3">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter Password"
+                required
+              />
+            </Form.Group>
+          </Col>
+        </Row>
 
-        <Form.Group controlId="formPhone" className="mb-3">
-          <Form.Label>Phone</Form.Label>
-          <Form.Control
-            type="text"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="Enter Phone"
-            required
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formLoginId" className="mb-3">
-          <Form.Label>Login ID</Form.Label>
-          <Form.Control
-            type="text"
-            name="loginid"
-            value={formData.loginid}
-            onChange={handleChange}
-            placeholder="Enter Login ID"
-            required
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formPassword" className="mb-3">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Enter Password"
-            required
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formEmailVerified" className="mb-3">
-          <Form.Check
-            type="checkbox"
-            name="emailverified"
-            checked={formData.emailverified}
-            onChange={handleChange}
-            label="Email Verified"
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formPhoneVerified" className="mb-3">
-          <Form.Check
-            type="checkbox"
-            name="phoneverified"
-            checked={formData.phoneverified}
-            onChange={handleChange}
-            label="Phone Verified"
-          />
-        </Form.Group>
+        <Row>
+          <Col md={6}>
+            <Form.Group controlId="formEmailVerified" className="mb-3">
+              <Form.Check
+                type="checkbox"
+                name="emailverified"
+                label="Email Verified"
+                checked={formData.emailverified}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group controlId="formPhoneVerified" className="mb-3">
+              <Form.Check
+                type="checkbox"
+                name="phoneverified"
+                label="Phone Verified"
+                checked={formData.phoneverified}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
 
         <Form.Group controlId="formStatus" className="mb-3">
           <Form.Label>Status</Form.Label>
