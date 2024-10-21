@@ -6,7 +6,6 @@ import { Route, Routes } from 'react-router-dom';
 import Home from '../home/Home';
 import Login from './Login';
 import LoanApplicationForm from './LoanApplicationForm';
-import AvailableServices from './AvailableServices';
 import Services from './Services';
 import RepayLoan from './RepayLoan';
 import AvailableServices from './AvailableServices';
