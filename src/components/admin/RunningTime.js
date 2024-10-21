@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from 'react';
 
 const RunningTime = () => {
-    const [startTime] = useState(Date.now());
-    const [elapsedTime, setElapsedTime] = useState(0);
+    const [currentTime, setCurrentTime] = useState(new Date());
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setElapsedTime(Math.floor((Date.now() - startTime) / 1000));
+            setCurrentTime(new Date());
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [startTime]);
+    }, []);
 
-    const formatTime = (seconds) => {
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const secs = seconds % 60;
-        return `${hours}h ${minutes}m ${secs}s`;
+    const formatDateTime = (date) => {
+        return date.toLocaleString(); // Formats date and time to the local timezone
     };
 
     return (
         <div style={{ textAlign: 'center', color: '#fff' }}>
-            Running Time: {formatTime(elapsedTime)}
+            Current Date and Time: {formatDateTime(currentTime)}
         </div>
     );
 };
