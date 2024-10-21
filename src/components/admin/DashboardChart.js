@@ -14,8 +14,8 @@ const DashboardChart = () => {
       console.log('Fetched area data:', result);
 
       // Ensure the data is in the expected format
-      if (Array.isArray(result.data)) {
-        setAreaData(result.data); 
+      if (Array.isArray(result)) {
+        setAreaData(result); 
       } else {
         console.error('Area data is not an array:', result.data);
       }
