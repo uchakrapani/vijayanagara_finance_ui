@@ -64,7 +64,7 @@ const LoanUserList = () => {
                   <td>{user.zipcode}</td>
                   <td>{user.status}</td>
                   <td>
-                    <Button variant="warning" className="me-2" onClick={() => navigate(`/dashboard/edit-loan-user/${user._id}`)}>
+                    <Button variant="warning" className="me-2" onClick={() => navigate(`/dashboard/loan-user-detail/${user._id}`)}>
                       <FaEdit /> {/* Edit Icon */}
                     </Button>
                   </td>
