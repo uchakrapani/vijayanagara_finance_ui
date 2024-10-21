@@ -95,11 +95,12 @@ const LoanApplicationForm = () => {
 
   // Enable submit button only when all validations pass
   useEffect(() => {
+    const isPanValid = panPattern.test(formData.pancard);
     if (
       formData.fullName &&
       formData.emailId &&
       formData.phone &&
-      panPattern.test(formData.pancard) &&
+      isPanValid &&
       aadharPattern.test(formData.aadhar) &&
       formData.salary &&
       formData.loan_amount_req &&
@@ -126,13 +127,18 @@ const LoanApplicationForm = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Check again if PAN card is valid before submitting
+    if (!panPattern.test(formData.pancard)) {
+      setError('Please enter a valid PAN card number.');
+      return; // Prevent submission
+    }
+
     try {
       const response = await axios.post(
         'https://vijayanagara-finance-api.vercel.app/loanuser',
         formData
       );
       console.log(response.data);
-      console.log(response.data.reference_no);
       setReferenceNo(response.data.reference_no); // Set the reference number from response
       setError(''); // Clear any previous error
       // Clear form data after submission
