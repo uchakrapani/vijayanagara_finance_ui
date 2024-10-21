@@ -16,6 +16,7 @@ import CreateAdmin from './CreateAdmin';
 import EditAdmin from './EditAdmin';
 import LoanUserList from './LoanUserList';
 import ContactUs from './ContactUs';
+import LoanDetail from './LoanDetail';
 
 const Dashboard = () => {
     return (
@@ -40,6 +41,7 @@ const Dashboard = () => {
                             <Route path="/create-admin" element={<ProtectedRoute><CreateAdmin /></ProtectedRoute>} />
                             <Route path="/loanuser" element={<ProtectedRoute><LoanUserList /></ProtectedRoute>} />
                             <Route path="/contact" element={<ProtectedRoute><ContactUs /></ProtectedRoute>} />
+                            <Route path="/loan-user-detail/:loanId" element={<ProtectedRoute><LoanDetail /></ProtectedRoute>} />
                             <Route path="/edit-admin/:id" element={<ProtectedRoute><EditAdmin /></ProtectedRoute>} /> 
                             <Route path="/error-logs/:id" element={<ProtectedRoute><ErrorLogDetail /></ProtectedRoute>} /> 
                         </Routes>
