@@ -62,6 +62,8 @@ const LoanDetail = () => {
             </Col>
           </Row>
 
+          <hr /> {/* Divider */}
+          
           <h5>Loan Information</h5>
           <Row>
             <Col md={6}>
@@ -75,6 +77,8 @@ const LoanDetail = () => {
               <p><strong>Reference No:</strong> {loanDetail.reference_no}</p>
             </Col>
           </Row>
+
+          <hr /> {/* Divider */}
 
           <h5>Additional Information</h5>
           <Row>
