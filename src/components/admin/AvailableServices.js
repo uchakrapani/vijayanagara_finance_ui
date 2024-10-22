@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Alert, Spinner, Form, InputGroup, Card, Row, Col } from 'react-bootstrap';
-import { FaCity, FaMapMarkerAlt, FaBarcode } from 'react-icons/fa'; // Import icons
+import { Container, Table, Alert, Spinner, Form, InputGroup } from 'react-bootstrap';
 
 const AvailableServices = () => {
   const [data, setData] = useState([]);
@@ -9,6 +8,7 @@ const AvailableServices = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortConfig, setSortConfig] = useState({ key: 'city', direction: 'ascending' });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +43,26 @@ const AvailableServices = () => {
     setFilteredData(filtered);
   };
 
+  // Handle sorting
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+
+    const sortedData = [...filteredData].sort((a, b) => {
+      if (a[key] < b[key]) {
+        return direction === 'ascending' ? -1 : 1;
+      }
+      if (a[key] > b[key]) {
+        return direction === 'ascending' ? 1 : -1;
+      }
+      return 0;
+    });
+    setFilteredData(sortedData);
+  };
+
   return (
     <Container className="mt-5">
       <h2 className="text-center mb-4">Available Cities and ZIP Codes for Loan Services</h2>
@@ -64,22 +84,31 @@ const AvailableServices = () => {
               onChange={handleSearchChange}
             />
           </InputGroup>
-
-          <Row>
-            {filteredData.map(item => (
-              <Col md={4} key={item._id} className="mb-4">
-                <Card>
-                  <Card.Body>
-                    <Card.Title><FaCity /> {item.city}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted"><FaMapMarkerAlt /> {item.state}</Card.Subtitle>
-                    <Card.Text>
-                      <FaBarcode /> {item.zipcode}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
+          
+          <Table striped bordered hover responsive>
+            <thead>
+              <tr>
+                <th onClick={() => requestSort('city')} style={{ cursor: 'pointer' }}>
+                  City {sortConfig.key === 'city' ? (sortConfig.direction === 'ascending' ? '↑' : '↓') : ''}
+                </th>
+                <th onClick={() => requestSort('state')} style={{ cursor: 'pointer' }}>
+                  State {sortConfig.key === 'state' ? (sortConfig.direction === 'ascending' ? '↑' : '↓') : ''}
+                </th>
+                <th onClick={() => requestSort('zipcode')} style={{ cursor: 'pointer' }}>
+                  ZIP Code {sortConfig.key === 'zipcode' ? (sortConfig.direction === 'ascending' ? '↑' : '↓') : ''}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData.map((item, index) => (
+                <tr key={item._id}>
+                  <td>{item.city}</td>
+                  <td>{item.state}</td>
+                  <td>{item.zipcode}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         </>
       )}
     </Container>
