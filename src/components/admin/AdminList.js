@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Table, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, Card, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons for Edit and Delete
 
@@ -53,7 +53,7 @@ const AdminList = () => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>; // Show error message if fetching fails
+    return <Alert variant="danger">Error: {error}</Alert>; // Show error message if fetching fails
   }
 
   return (
@@ -69,43 +69,33 @@ const AdminList = () => {
         </Col>
       </Row>
       <Row>
-        <Col>
-          <Table striped bordered hover responsive>
-            <thead>
-              <tr>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Status</th>
-                <th>Date Created</th>
-                <th>Actions</th> {/* Add a new column for actions */}
-              </tr>
-            </thead>
-            <tbody>
-              {admins.map((admin) => (
-                <tr key={admin._id}>
-                  <td>{admin.fullname}</td>
-                  <td>{admin.email}</td>
-                  <td>{admin.phone}</td>
-                  <td>
-                    <span className={`badge ${admin.status === 'active' ? 'bg-success' : 'bg-danger'}`}>
-                      {admin.status}
-                    </span>
-                  </td>
-                  <td>{new Date(admin.datecreated).toLocaleString()}</td> {/* Format date */}
-                  <td>
-                    <Button variant="warning" className="me-2" onClick={() => navigate(`/dashboard/edit-admin/${admin._id}`)}>
-                      <FaEdit /> {/* Edit Icon */}
-                    </Button>
-                    <Button variant="danger" onClick={() => handleDelete(admin._id)}>
-                      <FaTrash /> {/* Delete Icon */}
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Col>
+        {admins.map((admin) => (
+          <Col md={4} key={admin._id} className="mb-4">
+            <Card>
+              <Card.Body>
+                <Card.Title>{admin.fullname}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">{admin.email}</Card.Subtitle>
+                <Card.Text>
+                  <strong>Phone:</strong> {admin.phone} <br />
+                  <strong>Status:</strong> 
+                  <span className={`badge ${admin.status === 'active' ? 'bg-success' : 'bg-danger'}`}>
+                    {admin.status}
+                  </span>
+                  <br />
+                  <strong>Date Created:</strong> {new Date(admin.datecreated).toLocaleString()} {/* Format date */}
+                </Card.Text>
+                <div className="d-flex justify-content-between">
+                  <Button variant="warning" onClick={() => navigate(`/dashboard/edit-admin/${admin._id}`)}>
+                    <FaEdit /> {/* Edit Icon */}
+                  </Button>
+                  <Button variant="danger" onClick={() => handleDelete(admin._id)}>
+                    <FaTrash /> {/* Delete Icon */}
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
       </Row>
     </Container>
   );
