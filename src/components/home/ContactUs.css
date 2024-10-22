@@ -1,0 +1,17 @@
+.contact-wrapper {
+    border: 2px solid #007bff; /* Change color as needed */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 20px; /* Inner padding */
+    background-color: #fff; /* White background for clarity */
+    margin-bottom: 20px; /* Spacing between sections */
+  }
+  
+  .contact-wrapper h2 {
+    color: #007bff; /* Header color */
+  }
+  
+  .contact-wrapper p {
+    color: #333; /* Text color */
+  }
+  

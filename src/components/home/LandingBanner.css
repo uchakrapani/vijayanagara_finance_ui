@@ -1,0 +1,43 @@
+/* LandingBanner.css */
+.slider-cap-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 20px; /* Adjust padding as needed */
+    background-color: #f9f9f9; /* Background color */
+}
+
+.hero__caption {
+    max-width: 600px; /* Limit width of the caption */
+}
+
+.hero__caption p {
+    font-size: 24px; /* Adjust font size */
+    color: #333; /* Text color */
+    margin-bottom: 10px; /* Space below paragraph */
+}
+
+.hero__caption h1 {
+    font-size: 36px; /* Adjust font size */
+    color: #007bff; /* Change to your brand color */
+    margin-bottom: 20px; /* Space below heading */
+}
+
+.hero__caption .hero-btn {
+    display: inline-block;
+    padding: 10px 20px; /* Adjust padding */
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Button text color */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.hero__caption .hero-btn:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.hero__img img {
+    max-width: 100%; /* Make image responsive */
+    height: auto; /* Maintain aspect ratio */
+}

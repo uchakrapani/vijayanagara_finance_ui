@@ -17,6 +17,7 @@ import EditAdmin from './EditAdmin';
 import LoanUserList from './LoanUserList';
 import ContactUs from './ContactUs';
 import LoanDetail from './LoanDetail';
+import BackupManager from './BackupManager';
 
 const Dashboard = () => {
     return (
@@ -43,7 +44,8 @@ const Dashboard = () => {
                             <Route path="/contact" element={<ProtectedRoute><ContactUs /></ProtectedRoute>} />
                             <Route path="/loan-user-detail/:loanId" element={<ProtectedRoute><LoanDetail /></ProtectedRoute>} />
                             <Route path="/edit-admin/:id" element={<ProtectedRoute><EditAdmin /></ProtectedRoute>} /> 
-                            <Route path="/error-logs/:id" element={<ProtectedRoute><ErrorLogDetail /></ProtectedRoute>} /> 
+                            <Route path="/error-logs/:id" element={<ProtectedRoute><ErrorLogDetail /></ProtectedRoute>} />
+                            <Route path="/backupdb" element={<ProtectedRoute><BackupManager /></ProtectedRoute>} /> 
                         </Routes>
                     </Col>
 

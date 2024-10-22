@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { FaTachometerAlt, FaMapMarkedAlt, FaExclamationTriangle, FaUserCircle, FaMoneyBill,FaAddressBook  } from 'react-icons/fa'; // Import desired icons
+import { FaTachometerAlt, FaMapMarkedAlt, FaExclamationTriangle, FaUserCircle, FaMoneyBill,FaAddressBook, FaDatabase  } from 'react-icons/fa'; // Import desired icons
 
 const DashboardNav = () => {
     return (
@@ -23,6 +23,9 @@ const DashboardNav = () => {
             </Nav.Link>
             <Nav.Link as={Link} to="/dashboard/error-logs">
                 <FaExclamationTriangle style={{ marginRight: '8px' }} /> Error Logs
+            </Nav.Link>
+            <Nav.Link as={Link} to="/dashboard/backupdb">
+                <FaDatabase style={{ marginRight: '8px' }} /> Database Backup
             </Nav.Link>
         </Nav>
     );
