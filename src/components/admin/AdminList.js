@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Button, Card, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Button, Card, Alert, InputGroup, FormControl } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons for Edit and Delete
+import { FaEdit, FaTrash, FaPhone, FaEnvelope, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'; // Import icons
 
 const AdminList = () => {
   const [admins, setAdmins] = useState([]); // State for admins
   const [loading, setLoading] = useState(true); // State for loading status
   const [error, setError] = useState(null); // State for error messages
+  const [searchTerm, setSearchTerm] = useState(''); // State for search input
   const navigate = useNavigate(); // To navigate to other pages
 
   // Fetch admin data from the API
@@ -48,6 +49,12 @@ const AdminList = () => {
     fetchAdmins(); // Fetch admin data when the component mounts
   }, []);
 
+  const filteredAdmins = admins.filter(admin =>
+    admin.fullname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    admin.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    admin.phone.includes(searchTerm)
+  );
+
   if (loading) {
     return <div>Loading...</div>; // Show loading message
   }
@@ -68,21 +75,28 @@ const AdminList = () => {
           </Link>
         </Col>
       </Row>
+      <InputGroup className="mb-4">
+        <FormControl
+          placeholder="Search by name, email, or phone"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </InputGroup>
       <Row>
-        {admins.map((admin) => (
+        {filteredAdmins.map((admin) => (
           <Col md={4} key={admin._id} className="mb-4">
             <Card>
               <Card.Body>
                 <Card.Title>{admin.fullname}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">{admin.email}</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted">
+                  <FaEnvelope className="me-2" /> {admin.email}
+                </Card.Subtitle>
                 <Card.Text>
-                  <strong>Phone:</strong> {admin.phone} <br />
+                  <FaPhone className="me-2" /> {admin.phone} <br />
                   <strong>Status:</strong> 
                   <span className={`badge ${admin.status === 'active' ? 'bg-success' : 'bg-danger'}`}>
-                    {admin.status}
+                    {admin.status === 'active' ? <FaCheckCircle /> : <FaTimesCircle />} {admin.status}
                   </span>
-                  <br />
-                  <strong>Date Created:</strong> {new Date(admin.datecreated).toLocaleString()} {/* Format date */}
                 </Card.Text>
                 <div className="d-flex justify-content-between">
                   <Button variant="warning" onClick={() => navigate(`/dashboard/edit-admin/${admin._id}`)}>
