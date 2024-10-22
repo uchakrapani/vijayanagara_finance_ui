@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Button, Alert, Card, InputGroup, FormControl } from 'react-bootstrap';
+import { Container, Row, Col, Button, Alert, Card, InputGroup, FormControl, Badge } from 'react-bootstrap'; // Import Badge
 import { Link } from 'react-router-dom';
 import { FaEdit, FaTrash, FaCity, FaMapMarkerAlt, FaBarcode } from 'react-icons/fa'; // Import icons
 
