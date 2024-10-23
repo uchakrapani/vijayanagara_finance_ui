@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Row, Col, Card, Alert, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Card, Alert, Spinner, Table } from 'react-bootstrap';
 
 const LoanDetail = () => {
   const { loanId } = useParams(); // Get the loan ID from the URL
@@ -49,36 +49,64 @@ const LoanDetail = () => {
       <Card className="mb-4">
         <Card.Body>
           <h5>Personal Information</h5>
-          <Row>
-            <Col md={6}>
-              <p><strong>Full Name:</strong> {loanDetail.fullName}</p>
-              <p><strong>Email:</strong> {loanDetail.emailId}</p>
-              <p><strong>Phone:</strong> {loanDetail.phone}</p>
-              <p><strong>Login ID:</strong> {loanDetail.loginId}</p> {/* Added Login ID */}
-            </Col>
-            <Col md={6}>
-              <p><strong>PAN Card:</strong> {loanDetail.pancard}</p>
-              <p><strong>Aadhar:</strong> {loanDetail.aadhar}</p>
-            </Col>
-          </Row>
-
-          <hr /> {/* Divider */}
+          <Table bordered className="table-border">
+            <tbody>
+              <tr>
+                <td><strong>Full Name:</strong></td>
+                <td>{loanDetail.fullName}</td>
+              </tr>
+              <tr>
+                <td><strong>Email:</strong></td>
+                <td>{loanDetail.emailId}</td>
+              </tr>
+              <tr>
+                <td><strong>Phone:</strong></td>
+                <td>{loanDetail.phone}</td>
+              </tr>
+              <tr>
+                <td><strong>Login ID:</strong></td>
+                <td>{loanDetail.loginId}</td>
+              </tr>
+              <tr>
+                <td><strong>PAN Card:</strong></td>
+                <td>{loanDetail.pancard}</td>
+              </tr>
+              <tr>
+                <td><strong>Aadhar:</strong></td>
+                <td>{loanDetail.aadhar}</td>
+              </tr>
+            </tbody>
+          </Table>
           
           <h5>Loan Information</h5>
-          <Row>
-            <Col md={6}>
-              <p><strong>Salary:</strong> ₹{loanDetail.salary}</p>
-              <p><strong>Loan Amount Requested:</strong> ₹{loanDetail.loan_amount_req}</p>
-            </Col>
-            <Col md={6}>
-              <p><strong>City:</strong> {loanDetail.city}</p>
-              <p><strong>Zip Code:</strong> {loanDetail.zipcode}</p>
-              <p><strong>Status:</strong> {loanDetail.status}</p>
-              <p><strong>Reference No:</strong> {loanDetail.reference_no}</p>
-            </Col>
-          </Row>
-
-          <hr /> {/* Divider */}
+          <Table bordered className="table-border">
+            <tbody>
+              <tr>
+                <td><strong>Salary:</strong></td>
+                <td>₹{loanDetail.salary}</td>
+              </tr>
+              <tr>
+                <td><strong>Loan Amount Requested:</strong></td>
+                <td>₹{loanDetail.loan_amount_req}</td>
+              </tr>
+              <tr>
+                <td><strong>City:</strong></td>
+                <td>{loanDetail.city}</td>
+              </tr>
+              <tr>
+                <td><strong>Zip Code:</strong></td>
+                <td>{loanDetail.zipcode}</td>
+              </tr>
+              <tr>
+                <td><strong>Status:</strong></td>
+                <td>{loanDetail.status}</td>
+              </tr>
+              <tr>
+                <td><strong>Reference No:</strong></td>
+                <td>{loanDetail.reference_no}</td>
+              </tr>
+            </tbody>
+          </Table>
 
           <h5>Additional Information</h5>
           <Row>

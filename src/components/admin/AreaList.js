@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Button, Alert, Card, InputGroup, FormControl, Badge } from 'react-bootstrap'; // Import Badge
+import { Container, Row, Col, Button, Alert, Table, InputGroup, FormControl, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { FaEdit, FaTrash, FaCity, FaMapMarkerAlt, FaBarcode } from 'react-icons/fa'; // Import icons
+import { FaEdit, FaTrash, FaCity, FaMapMarkerAlt, FaBarcode } from 'react-icons/fa';
 
 const AreaList = () => {
-  const [areas, setAreas] = useState([]); // Initialize areas as an empty array
+  const [areas, setAreas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null); // For success messages
-  const [searchTerm, setSearchTerm] = useState(''); // State for search input
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [areasPerPage] = useState(5);
 
-  // Fetch areas from the API
   const fetchAreas = async () => {
     try {
       const response = await fetch('https://vijayanagara-finance-api.vercel.app/area');
@@ -18,7 +19,7 @@ const AreaList = () => {
         throw new Error('Failed to fetch areas');
       }
       const data = await response.json();
-      setAreas(data); // Ensure data is set to an array
+      setAreas(data);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -30,32 +31,20 @@ const AreaList = () => {
     fetchAreas();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>; // Display loading message while fetching data
-  }
-
-  if (error) {
-    return <Alert variant="danger">Error: {error}</Alert>; // Display error message if fetching fails
-  }
-
-  // Handle delete action
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this area?');
-
     if (confirmDelete) {
       try {
         const response = await fetch(`https://vijayanagara-finance-api.vercel.app/area/${id}`, {
           method: 'DELETE',
         });
-
         if (!response.ok) {
           throw new Error('Failed to delete the area');
         }
-
-        setSuccessMessage('Area deleted successfully!'); // Set success message
-        setAreas(areas.filter(area => area._id !== id)); // Update the state to remove the deleted area
+        setSuccessMessage('Area deleted successfully!');
+        setAreas(areas.filter(area => area._id !== id));
       } catch (error) {
-        setError(error.message); // Set error message if delete fails
+        setError(error.message);
       }
     }
   };
@@ -66,10 +55,24 @@ const AreaList = () => {
     area.zipcode.includes(searchTerm)
   );
 
+  // Pagination logic
+  const indexOfLastArea = currentPage * areasPerPage;
+  const indexOfFirstArea = indexOfLastArea - areasPerPage;
+  const currentAreas = filteredAreas.slice(indexOfFirstArea, indexOfLastArea);
+  const totalPages = Math.ceil(filteredAreas.length / areasPerPage);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <Alert variant="danger">Error: {error}</Alert>;
+  }
+
   return (
     <Container>
-      {successMessage && <Alert variant="success">{successMessage}</Alert>} {/* Display success message */}
-      {error && <Alert variant="danger">{error}</Alert>} {/* Display error message */}
+      {successMessage && <Alert variant="success">{successMessage}</Alert>}
+      {error && <Alert variant="danger">{error}</Alert>}
       
       <Row className="mb-3">
         <Col md={8}>
@@ -90,33 +93,61 @@ const AreaList = () => {
         />
       </InputGroup>
 
-      <Row>
-        {filteredAreas.map((area) => (
-          <Col md={4} key={area.zipcode} className="mb-4">
-            <Card>
-              <Card.Body>
-                <Card.Title><FaCity className="me-2" /> {area.city}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted"><FaMapMarkerAlt className="me-2" /> {area.state}</Card.Subtitle>
-                <Card.Text>
-                  <FaBarcode className="me-2" /> {area.zipcode} <br />
-                  <Badge bg={area.status === 'active' ? 'success' : 'danger'} className="me-2">
-                    {area.status}
-                  </Badge>
-                </Card.Text>
-                <div className="d-flex justify-content-between">
-                  <Link to={`/dashboard/edit-area/${area._id}`}>
-                    <FaEdit style={{ cursor: 'pointer', color: 'blue' }} />
-                  </Link>
-                  <FaTrash
-                    onClick={() => handleDelete(area._id)}
-                    style={{ cursor: 'pointer', color: 'red' }}
-                  />
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>City</th>
+            <th>State</th>
+            <th>ZIP Code</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentAreas.map((area) => (
+            <tr key={area.zipcode}>
+              <td>
+                <FaCity className="me-2" /> {area.city}
+              </td>
+              <td>
+                <FaMapMarkerAlt className="me-2" /> {area.state}
+              </td>
+              <td>
+                <FaBarcode className="me-2" /> {area.zipcode}
+              </td>
+              <td>
+                <Badge bg={area.status === 'active' ? 'success' : 'danger'} className="me-2">
+                  {area.status}
+                </Badge>
+              </td>
+              <td>
+                <Link to={`/dashboard/edit-area/${area._id}`}>
+                  <FaEdit style={{ cursor: 'pointer', color: 'blue' }} />
+                </Link>
+                <FaTrash
+                  onClick={() => handleDelete(area._id)}
+                  style={{ cursor: 'pointer', color: 'red', marginLeft: '10px' }}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+
+      <div className="d-flex justify-content-between mt-3">
+        <Button 
+          disabled={currentPage === 1} 
+          onClick={() => setCurrentPage(currentPage - 1)}
+        >
+          Previous
+        </Button>
+        <Button 
+          disabled={currentPage === totalPages} 
+          onClick={() => setCurrentPage(currentPage + 1)}
+        >
+          Next
+        </Button>
+      </div>
     </Container>
   );
 };

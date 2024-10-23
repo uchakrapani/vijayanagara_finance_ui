@@ -12,7 +12,12 @@ const BackupManager = () => {
   const fetchBackups = async () => {
     try {
       const response = await axios.get('https://vijayanagara-finance-api.vercel.app/backup');
-      setBackups(response.data.backups);
+      // Ensure backups is defined and is an array
+      if (response.data && Array.isArray(response.data)) {
+        setBackups(response.data);
+      } else {
+        setError('No backups found or invalid response format.');
+      }
     } catch (err) {
       setError('Failed to fetch backup files. Please try again later.');
       console.error(err);
@@ -26,7 +31,7 @@ const BackupManager = () => {
     setSuccessMessage('');
 
     try {
-      const response = await axios.post('https://vijayanagara-finance-api.vercel.app/backup/create');
+      const response = await axios.post('https://vijayanagara-finance-api.vercel.app/backup');
       setSuccessMessage(response.data.message);
       fetchBackups(); // Refresh the backup list after creating a new backup
     } catch (err) {
@@ -59,7 +64,7 @@ const BackupManager = () => {
         <ListGroup>
           {backups.map((backup) => (
             <ListGroup.Item key={backup.name}>
-              <a href={backup.downloadLink} target="_blank" rel="noopener noreferrer">
+              <a href={`/backup/download/${backup.name}`} target="_blank" rel="noopener noreferrer">
                 {backup.name}
               </a>
             </ListGroup.Item>
