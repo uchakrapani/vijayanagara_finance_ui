@@ -42,67 +42,67 @@ const ContactUs = () => {
 
   return (
     <Container className="mt-5">
-      <div className="contact-wrapper border rounded p-4">
-        <Row className="align-items-center">
-          <Col md={6} className="mb-4">
-            <h2 className="text-center mb-4">Contact Us</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            {successMessage && <Alert variant="success">{successMessage}</Alert>}
+      <Row className="justify-content-md-center">
+        <Col md={6}>
+          <h2 className="text-center mb-4">Contact Us</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
+          {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
-            <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="fullName" className="mb-3">
-                <Form.Label>Full Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="fullName" className="mb-3">
+              <Form.Label>Full Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
 
-              <Form.Group controlId="email" className="mb-3">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
+            <Form.Group controlId="email" className="mb-3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
 
-              <Form.Group controlId="phone" className="mb-3">
-                <Form.Label>Phone</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
+            <Form.Group controlId="phone" className="mb-3">
+              <Form.Label>Phone</Form.Label>
+              <Form.Control
+                type="text"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
 
-              <Form.Group controlId="message" className="mb-3">
-                <Form.Label>Message</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  name="message"
-                  rows={4}
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
+            <Form.Group controlId="message" className="mb-3">
+              <Form.Label>Message</Form.Label>
+              <Form.Control
+                as="textarea"
+                name="message"
+                rows={4}
+                value={formData.message}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
 
-              <Button variant="primary" type="submit" disabled={loading}>
-                {loading ? <Spinner animation="border" size="sm" /> : 'Submit'}
-              </Button>
-            </Form>
-          </Col>
+            <Button variant="primary" type="submit" disabled={loading}>
+              {loading ? <Spinner animation="border" size="sm" /> : 'Submit'}
+            </Button>
+          </Form>
+        </Col>
 
-          <Col md={6} className="text-center mb-4">
-            <h2>Your Financial Queries Matter</h2>
+        <Col md={4} className="d-none d-md-block text-center border-start">
+          <div className="content-section">
+            <h5>Your Financial Queries Matter</h5>
             <p>
               At Vijaya Nagara Finance, we understand the importance of your financial goals.
               Whether you have questions about our services or need assistance with a loan application,
@@ -114,9 +114,9 @@ const ContactUs = () => {
               className="img-fluid" 
               style={{ maxWidth: '50%', height: 'auto', marginTop: '20px' }} 
             />
-          </Col>
-        </Row>
-      </div>
+          </div>
+        </Col>
+      </Row>
     </Container>
   );
 };

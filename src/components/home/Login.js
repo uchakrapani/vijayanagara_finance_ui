@@ -1,19 +1,20 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../AuthContext';
-import { Form, Button, Alert, Container, Row, Col, Spinner } from 'react-bootstrap'; // Import Spinner
+import { Form, Button, Alert, Container, Row, Col, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import './Login.css'; // Import your custom CSS
 
 const Login = () => {
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading
+    setLoading(true);
 
     const loginData = {
       loginid: loginId,
@@ -39,7 +40,7 @@ const Login = () => {
     } catch (error) {
       setErrorMessage('Error connecting to the server. Please try again later.');
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
@@ -75,7 +76,7 @@ const Login = () => {
             <Button variant="primary" type="submit" disabled={loading}>
               {loading ? (
                 <>
-                  <Spinner animation="border" size="sm" /> {/* Spinner */}
+                  <Spinner animation="border" size="sm" />
                   {' Loading...'}
                 </>
               ) : (
@@ -83,6 +84,14 @@ const Login = () => {
               )}
             </Button>
           </Form>
+        </Col>
+
+        <Col md={4} className="d-none d-md-block text-center border-start">
+          <div className="content-section">
+            <h5>Welcome Back!</h5>
+            <p>Please enter your login credentials to access your account.</p>
+            <p>If you don’t have an account, please contact support.</p>
+          </div>
         </Col>
       </Row>
     </Container>
