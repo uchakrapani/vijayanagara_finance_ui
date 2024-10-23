@@ -30,6 +30,7 @@ const WhyChooseUs = () => {
                     <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#007bff' }}>
                         Loan for Solving Temporary Financial Shortage
                     </h2>
+                    <hr/>
                     <p style={{ fontSize: '1.1rem', color: '#555', maxWidth: '600px', margin: '0 auto' }}>
                         Get the financial support you need with our quick and hassle-free loan options. Whether it’s for unexpected expenses or urgent needs, we’re here to provide you with the assistance you require to overcome temporary financial challenges.
                     </p>

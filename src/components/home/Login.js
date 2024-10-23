@@ -31,7 +31,8 @@ const Login = () => {
       });
 
       if (response.ok) {
-        login(loginData);
+        const data = await response.json(); // Corrected to use await
+        login(data.admin); // Assuming data contains the admin object
         navigate('/dashboard');
       } else {
         const result = await response.json();

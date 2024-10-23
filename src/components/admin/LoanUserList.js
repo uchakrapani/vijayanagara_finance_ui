@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Container, Spinner, Alert, InputGroup, FormControl, Row, Col, Button } from 'react-bootstrap';
+import { Table, Container, Spinner, Alert, InputGroup, FormControl, Row, Col, Button, Badge } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
@@ -54,6 +54,23 @@ const LoanUserList = () => {
     }
   };
 
+  const renderStatusBadge = (status) => {
+    const badgeVariants = {
+      submitted: 'info',
+      'document-verification': 'warning',
+      'in-progress': 'primary',
+      'docs-required': 'secondary',
+      approved: 'success',
+      rejected: 'danger',
+    };
+
+    return (
+      <Badge bg={badgeVariants[status] || 'light'}>
+        {status.charAt(0).toUpperCase() + status.slice(1).replace(/-/g, ' ')}
+      </Badge>
+    );
+  };
+
   return (
     <Container className="mt-5">
       <Row className="mb-3 align-items-center">
@@ -100,7 +117,7 @@ const LoanUserList = () => {
                     <td>{user.fullName}</td>
                     <td>{user.city}</td>
                     <td>{user.zipcode}</td>
-                    <td>{user.status}</td>
+                    <td>{renderStatusBadge(user.status)}</td>
                     <td>
                       <FaEdit
                         onClick={() => navigate(`/dashboard/loan-user-detail/${user._id}`)}
